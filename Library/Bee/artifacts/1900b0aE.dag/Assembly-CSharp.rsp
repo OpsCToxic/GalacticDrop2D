@@ -448,11 +448,13 @@
 "Assets/Health.cs"
 "Assets/HealthManager.cs"
 "Assets/HealthPowerUp.cs"
+"Assets/KillCounter.cs"
 "Assets/KillManager.cs"
 "Assets/Pathfinding.cs"
 "Assets/PathfindingTarget.cs"
 "Assets/PlayerMovement.cs"
 "Assets/Spacecraft.cs"
+"Assets/UpgradePowerUp.cs"
 "Assets/Weapon.cs"
 -langversion:9.0
 /deterministic

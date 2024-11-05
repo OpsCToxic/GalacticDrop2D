@@ -6,6 +6,8 @@ public class EnemyShooting : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public AudioSource shootingAudioSource; // Reference to the AudioSource for shooting sound
+
     private float timer;
 
     void Start()
@@ -26,6 +28,7 @@ public class EnemyShooting : MonoBehaviour
 
     void shoot()
     {
+        shootingAudioSource.Play();
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 }

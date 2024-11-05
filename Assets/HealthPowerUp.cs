@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HealthPowerUp : MonoBehaviour
 {
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the object colliding is the player
@@ -14,8 +15,8 @@ public class HealthPowerUp : MonoBehaviour
                 powerUpManager.ApplyHealthPowerUp();
             }
 
-            // Destroy the power-up after collection
-            Destroy(gameObject);
+            // Deactivate the power-up after collection
+            gameObject.SetActive(false);
         }
     }
 }

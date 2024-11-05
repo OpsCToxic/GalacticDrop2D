@@ -7,8 +7,12 @@ public class Weapon : MonoBehaviour
     public float fireRate = 0.5f; // Default time in seconds between shots
     private float defaultFireRate; // Store the original fire rate
 
+    public AudioSource shootingAudioSource; // Reference to the AudioSource for shooting sound
+
     private Vector3 target;
     private float nextFireTime = 0f;
+
+    private Coroutine fireRateCoroutine; // Reference to the active fire rate coroutine
 
     void Start()
     {
@@ -35,13 +39,23 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0f, 0f, rotationZ));
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.linearVelocity = direction * bulletSpeed;
+
+        // Play shooting sound if AudioSource is available
+        if (shootingAudioSource != null)
+        {
+            shootingAudioSource.Play();
+        }
     }
 
     // Temporarily increases fire rate for a set duration
     public void IncreaseFireRate(float multiplier, float duration)
     {
-        StopAllCoroutines(); // Stop any previous fire rate coroutine
-        StartCoroutine(TemporarilyIncreaseFireRate(multiplier, duration));
+        // Stop any existing fire rate coroutine to avoid overlap
+        if (fireRateCoroutine != null)
+        {
+            StopCoroutine(fireRateCoroutine);
+        }
+        fireRateCoroutine = StartCoroutine(TemporarilyIncreaseFireRate(multiplier, duration));
     }
 
     private System.Collections.IEnumerator TemporarilyIncreaseFireRate(float multiplier, float duration)

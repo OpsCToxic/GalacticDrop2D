@@ -10,6 +10,8 @@ public class Health : MonoBehaviour
 
     public int _curHp;
     private Animator _animator;
+    private PowerUpManager powerUpManager;
+
     private bool _isDead = false;
 
     public int MaxHp => _maxHp;
@@ -54,6 +56,7 @@ public class Health : MonoBehaviour
     {
         _curHp = _maxHp;
         _animator = GetComponent<Animator>();
+        powerUpManager = FindObjectOfType<PowerUpManager>();
 
         // Subscribe to Dead event
         Dead.AddListener(OnDeath);
@@ -80,7 +83,12 @@ public class Health : MonoBehaviour
         {
             aiPath.OnDeath(); // Stop movement in AIPath script
         }
-
+        KillCounter killCounter = FindObjectOfType<KillCounter>();
+        if (killCounter != null)
+        {
+            killCounter.IncrementKillCount();
+        }
+        powerUpManager.OnEnemyKilled(transform.position);
         // Trigger death animation if there's an Animator
         if (_animator != null)
         {
